@@ -1,7 +1,6 @@
-#include "myDHTSensor.h"
+#include "my_gh_sensor.h"
 
-
-void logDhtTempSpec(DHT_Unified dht_sensor){
+void log_dht_temp_sens_spec(DHT_Unified &dht_sensor){
     sensor_t sensor;
     dht_sensor.temperature().getSensor(&sensor);
     // Print temperature sensor details.
@@ -16,7 +15,7 @@ void logDhtTempSpec(DHT_Unified dht_sensor){
     Serial.println(F("------------------------------------"));
 }
 
-void logDhtHumSpec(DHT_Unified dht_sensor){
+void log_dht_hum_sens_spec(DHT_Unified &dht_sensor){
     sensor_t sensor;
     dht_sensor.humidity().getSensor(&sensor);
     // Print humidity sensor details.
@@ -31,7 +30,7 @@ void logDhtHumSpec(DHT_Unified dht_sensor){
     Serial.println(F("------------------------------------"));
 }
 
-float readDhtTemp(DHT_Unified dht_sensor, boolean is_log_en){
+float read_dht_temp(DHT_Unified &dht_sensor, boolean is_log_en){
     // Get temperature event and print its value.
     sensors_event_t event;
     dht_sensor.temperature().getEvent(&event);
@@ -47,7 +46,7 @@ float readDhtTemp(DHT_Unified dht_sensor, boolean is_log_en){
     return event.temperature;
 }
 
-float readDhtHum (DHT_Unified dht_sensor, boolean is_log_en){
+float read_dht_hum (DHT_Unified &dht_sensor, boolean is_log_en){
     // Get temperature event and print its value.
     sensors_event_t event;
     // Get humidity event and print its value.
@@ -62,4 +61,20 @@ float readDhtHum (DHT_Unified dht_sensor, boolean is_log_en){
     }
 
     return event.relative_humidity;
+}
+
+float read_cms_soil_hum(const int & analog_pin, boolean is_log_en){
+    int raw_val = analogRead(analog_pin);
+    if (raw_val > CAP_MOIST_SEN_MAX)
+        raw_val = CAP_MOIST_SEN_MAX;
+    if (raw_val < CAP_MOIST_SEN_MIN)
+        raw_val = CAP_MOIST_SEN_MIN;
+    // The raw values goes in the opposite direction. CAP_MOIST_SEN_MIN -> 100% hum, CAP_MOIST_SEN_MAX -> 0% hum
+    int reverted_val = -(raw_val - CAP_MOIST_SEN_MAX);
+    int reverted_max = -(CAP_MOIST_SEN_MIN - CAP_MOIST_SEN_MAX);
+    float perc_val = reverted_val * 100 / reverted_max;
+
+    if(is_log_en){
+        Serial.print("CMS RAW = "); Serial.print(raw_val); Serial.print(" / CMS % = "); Serial.println(perc_val);
+    }
 }
