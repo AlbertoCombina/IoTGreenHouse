@@ -3,7 +3,7 @@
 #include <DHT.h>
 #include <DHT_U.h>
 #include "myDHTSensor.h"
-#include "randomMatrix.h"
+#include "Arduino_LED_Matrix.h"
 
 #define DHTPIN 2     // Digital pin connected to the DHT sensor 
 // Uncomment the type of sensor in use:
@@ -15,12 +15,17 @@ DHT_Unified dht(DHTPIN, DHTTYPE);
 
 // Arduino Matrix
 ArduinoLEDMatrix matrix;
+void randomMatrix(){
+  uint32_t frame[] = {random(0, UINT32_MAX/2), random(0, UINT32_MAX/2), random(0, UINT32_MAX/2)};
+  matrix.loadFrame(frame);
+} 
 
 // Delay in MS
 uint32_t delayMS;
 
 void setup() {
   Serial.begin(9600);
+  matrix.begin();
   // Initialize device.
   dht.begin();
   logDhtTempSpec(dht);
@@ -33,9 +38,10 @@ void loop() {
   delay(delayMS);
 
   // Random Matrix animation
-  randomMatrix(matrix);
+  randomMatrix();
 
   // Read sensor
   readDhtTemp(dht);
   readDhtHum(dht);
 }
+
