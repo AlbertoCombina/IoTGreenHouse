@@ -1,18 +1,23 @@
 #include <Arduino.h>
+#include "Arduino_LED_Matrix.h"
 
-// put function declarations here:
-int myFunction(int, int);
+ArduinoLEDMatrix matrix;
+
+void randomMatrix();
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  matrix.begin();
+  Serial.begin(9600);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
+  randomMatrix();
+  delay(1000);
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+
+void randomMatrix(){
+  uint32_t frame[] = {random(0, UINT32_MAX/2), random(0, UINT32_MAX/2), random(0, UINT32_MAX/2)};
+  matrix.loadFrame(frame);
 }
