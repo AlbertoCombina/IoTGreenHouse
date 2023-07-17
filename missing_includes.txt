@@ -1,0 +1,7 @@
+"C:/Users/xarat/.platformio/packages/framework-arduinorenesas-uno/variants/UNOWIFIR4/includes/ra/fsp/inc/api",
+"C:/Users/xarat/.platformio/packages/framework-arduinorenesas-uno/variants/UNOWIFIR4/includes/ra/fsp/inc",
+"C:/Users/xarat/.platformio/packages/framework-arduinorenesas-uno/variants/UNOWIFIR4/includes/ra_cfg/fsp_cfg/bsp",
+"C:/Users/xarat/.platformio/packages/framework-arduinorenesas-uno/variants/UNOWIFIR4/includes/ra_gen",
+"C:/Users/xarat/.platformio/packages/framework-arduinorenesas-uno/variants/UNOWIFIR4/includes/ra/arm/CMSIS_5/CMSIS/Core/Include",
+"C:/Users/xarat/.platformio/packages/framework-arduinorenesas-uno/variants/UNOWIFIR4/includes/ra/fsp/inc/instances",
+"C:/Users/xarat/.platformio/packages/framework-arduinorenesas-uno/variants/UNOWIFIR4/includes/ra_cfg/fsp_cfg"
